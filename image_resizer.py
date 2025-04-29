@@ -14,6 +14,7 @@ RAW_FOLDER_PATH = "potato_train/train"
 OUTPUT_FOLDER_PATH = "potato_train/train_resized"
 NEW_RESOLUTION = (512, 512)
 
+
 def run():
     for folder in os.listdir(RAW_FOLDER_PATH):
         path = os.path.join(RAW_FOLDER_PATH, folder)
@@ -24,11 +25,12 @@ def run():
             print(f"Directory '{output_path}' created successfully.")
         except FileExistsError:
             print(f"Directory '{output_path}' already exists.")
-        
-        jpeg_files = glob.glob(os.path.join(path, f"*.jpeg"))
+
+        jpeg_files = glob.glob(os.path.join(path, "*.jpeg"))
         for jpeg in jpeg_files:
             resize_image(jpeg, NEW_RESOLUTION)
     return
+
 
 def resize_image(input_filepath: str, resolution: tuple[int, int]) -> None:
     # Load image
@@ -36,11 +38,14 @@ def resize_image(input_filepath: str, resolution: tuple[int, int]) -> None:
     output_filepath = input_filepath.replace("/train", "/train_resized")
 
     # Resize to 512x512
-    resized_image = cv2.resize(image, resolution, interpolation=cv2.INTER_AREA)  # INTER_AREA for downscaling
+    resized_image = cv2.resize(
+        image, resolution, interpolation=cv2.INTER_AREA
+    )  # INTER_AREA for downscaling
 
     # Save the resized image
     cv2.imwrite(output_filepath, resized_image)
     print(f"Saved to {output_filepath}")
+
 
 if __name__ == "__main__":
     run()
