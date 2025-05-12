@@ -8,7 +8,13 @@ pip install opencv-python
 
 HOW TO RUN:
 python -m image_resizer
+
+commands:
+uv venv
+
+.venv/Scripts/activate
 """
+
 
 RAW_FOLDER_PATH = "potato_train/train"
 OUTPUT_FOLDER_PATH = "potato_train/train_resized"
