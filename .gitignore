@@ -2,6 +2,7 @@
 potato_train
 preprocessed_train_images
 preprocessed_test_images
+checkpoint-2312
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
