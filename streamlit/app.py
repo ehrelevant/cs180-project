@@ -4,15 +4,11 @@ import streamlit as st
 from PIL import Image
 import os
 #import requests
-from transformers import BeitImageProcessor, BeitForImageClassification # Adjust based on your model
+from transformers import BeitFeatureExtractor, BeitForImageClassification # Adjust based on your model
 
 # To locally host the streamlit website, do the ff:
 # cd streamlit
 # streamlit run app.py
-
-import torch
-
-torch.classes.__path__ = []
 
 # Use st.cache_resource to load the model only once
 @st.cache_resource
@@ -20,7 +16,7 @@ def load_model(model_path):
     # The path should be relative to your Streamlit app's root
     try:
         print(f"Attempting to load from: {model_path}")
-        feature_extractor = BeitImageProcessor.from_pretrained(model_path)
+        feature_extractor = BeitFeatureExtractor.from_pretrained(model_path)
         model = BeitForImageClassification.from_pretrained(model_path)
         model.config.id2label = {
             0: 'Bacteria', 
