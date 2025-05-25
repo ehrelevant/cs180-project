@@ -2,9 +2,9 @@ import streamlit as st
 #import cv2
 #import numpy as np
 from PIL import Image
+import os
 #import requests
 from transformers import BeitImageProcessor, BeitForImageClassification # Adjust based on your model
-import torch; print(torch.__version__)
 
 # To locally host the streamlit website, do the ff:
 # cd streamlit
@@ -45,7 +45,9 @@ def load_model(model_path):
         st.error(f"Error loading model locally: {e}. Is the model too large or files missing?")
         return None, None
 
-model_dir = "../BEiT/final_model_finetuned"
+current_dir = os.path.dirname(__file__)
+model_dir = os.path.join(current_dir, 'final_model_finetuned')
+print(model_dir)
 feature_extractor, model = load_model(model_dir)
 
 if feature_extractor and model:
