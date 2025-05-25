@@ -1,7 +1,10 @@
 # Other folders
 potato_train
+potato_test
 preprocessed_train_images
 preprocessed_test_images
+model
+model_finetuned
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
