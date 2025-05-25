@@ -10,46 +10,16 @@ from transformers import BeitImageProcessor, BeitForImageClassification # Adjust
 # cd streamlit
 # streamlit run app.py
 
-# st.write(
-#     "Streamlit is also great for more traditional ML use cases like computer vision or NLP. Here's an example of edge detection using OpenCV."
-# )
+import torch
 
-# uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
-# if uploaded_file:
-#     image = Image.open(uploaded_file)
-# else:
-#     image = Image.open(requests.get("https://picsum.photos/200/120", stream=True).raw)
-
-# edges = cv2.Canny(np.array(image), 100, 200)
-# tab1, tab2 = st.tabs(["Detected edges", "Original"])
-# tab1.image(edges, use_container_width=True)
-# tab2.image(image, use_container_width=True)
-
-# --- Temporary Diagnostic Code ---
-st.header("Deployment File Check")
-current_dir = os.path.dirname(__file__)
-model_dir = os.path.join(current_dir, 'final_model_finetuned')
-
-st.write(f"Attempting to load model from: `{model_dir}`")
-
-if os.path.exists(model_dir):
-    st.write(f"Directory `{model_dir}` exists.")
-    st.write("Contents of `final_model_finetuned`:")
-    try:
-        for item in os.listdir(model_dir):
-            st.write(f"- {item}")
-    except Exception as e:
-        st.error(f"Error listing directory contents: {e}")
-else:
-    st.error(f"Directory `{model_dir}` does NOT exist in the deployed environment.")
-st.write("--- End of File Check ---")
-# --- End Temporary Diagnostic Code ---
+torch.classes.__path__ = []
 
 # Use st.cache_resource to load the model only once
 @st.cache_resource
 def load_model(model_path):
     # The path should be relative to your Streamlit app's root
     try:
+        print(f"Attempting to load from: {model_path}")
         feature_extractor = BeitImageProcessor.from_pretrained(model_path)
         model = BeitForImageClassification.from_pretrained(model_path)
         model.config.id2label = {
