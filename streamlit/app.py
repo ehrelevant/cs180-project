@@ -25,6 +25,26 @@ from transformers import BeitImageProcessor, BeitForImageClassification # Adjust
 # tab1.image(edges, use_container_width=True)
 # tab2.image(image, use_container_width=True)
 
+# --- Temporary Diagnostic Code ---
+st.header("Deployment File Check")
+current_dir = os.path.dirname(__file__)
+model_dir = os.path.join(current_dir, 'final_model_finetuned')
+
+st.write(f"Attempting to load model from: `{model_dir}`")
+
+if os.path.exists(model_dir):
+    st.write(f"Directory `{model_dir}` exists.")
+    st.write("Contents of `final_model_finetuned`:")
+    try:
+        for item in os.listdir(model_dir):
+            st.write(f"- {item}")
+    except Exception as e:
+        st.error(f"Error listing directory contents: {e}")
+else:
+    st.error(f"Directory `{model_dir}` does NOT exist in the deployed environment.")
+st.write("--- End of File Check ---")
+# --- End Temporary Diagnostic Code ---
+
 # Use st.cache_resource to load the model only once
 @st.cache_resource
 def load_model(model_path):
